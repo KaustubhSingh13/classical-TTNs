@@ -1,0 +1,236 @@
+----------
+1 roots, 2 child nodes, 4 layers, max_bond_dim = 7	 4 sweeps
+
+
+sweep 0
+iso_loc_(1, 0)              0.000507s
+effective_network           0.001526s
+build_leh                   0.044724s
+optimise_(343, 343)         0.022247s
+iso_loc_(1, 1)              0.000465s
+effective_network           0.000875s
+build_leh                   0.036374s
+optimise_(343, 343)         0.014700s
+iso_loc_(2, 0)              0.000611s
+effective_network           0.005519s
+build_leh                   5.037480s
+optimise_(112, 112)         0.001492s
+iso_loc_(2, 1)              0.000526s
+effective_network           0.007595s
+build_leh                   5.195920s
+optimise_(112, 112)         0.001654s
+iso_loc_(2, 2)              0.000797s
+effective_network           0.001749s
+build_leh                   5.292398s
+optimise_(112, 112)         0.001493s
+iso_loc_(2, 3)              0.000690s
+effective_network           0.001431s
+build_leh                   5.363707s
+optimise_(112, 112)         0.001496s
+iso_loc_(3, 0)              0.001129s
+effective_network           0.002196s
+build_leh                  80.850650s
+optimise_(16, 16)           0.012800s
+iso_loc_(3, 1)              0.019121s
+effective_network           0.013929s
+build_leh                  79.245830s
+optimise_(16, 16)           0.016351s
+iso_loc_(3, 2)              0.022004s
+effective_network           0.013438s
+build_leh                  78.055121s
+optimise_(16, 16)           0.000184s
+iso_loc_(3, 3)              0.000530s
+effective_network           0.007120s
+build_leh                  77.738198s
+optimise_(16, 16)           0.000194s
+iso_loc_(3, 4)              0.006452s
+effective_network           0.002186s
+build_leh                  77.595235s
+optimise_(16, 16)           0.000121s
+iso_loc_(3, 5)              0.000460s
+effective_network           0.002192s
+build_leh                  77.539827s
+optimise_(16, 16)           0.000119s
+iso_loc_(3, 6)              0.000790s
+effective_network           0.002167s
+build_leh                  77.438222s
+optimise_(16, 16)           0.000122s
+iso_loc_(3, 7)              0.000581s
+effective_network           0.002256s
+build_leh                  77.681719s
+optimise_(16, 16)           0.000189s
+
+sweep 1
+iso_loc_(1, 0)              0.000153s
+effective_network           0.001023s
+build_leh                   0.045037s
+optimise_(343, 343)         0.022703s
+iso_loc_(1, 1)              0.000514s
+effective_network           0.000881s
+build_leh                   0.043525s
+optimise_(343, 343)         0.013009s
+iso_loc_(2, 0)              0.000686s
+effective_network           0.002865s
+build_leh                   5.197690s
+optimise_(112, 112)         0.001465s
+iso_loc_(2, 1)              0.000530s
+effective_network           0.007168s
+build_leh                   5.803082s
+optimise_(112, 112)         0.001743s
+iso_loc_(2, 2)              0.000970s
+effective_network           0.006763s
+build_leh                   6.135746s
+optimise_(112, 112)         0.001745s
+iso_loc_(2, 3)              0.000632s
+effective_network           0.001738s
+build_leh                   6.098640s
+optimise_(112, 112)         0.001747s
+iso_loc_(3, 0)              0.001178s
+effective_network           0.002565s
+build_leh                  77.614304s
+optimise_(16, 16)           0.000184s
+iso_loc_(3, 1)              0.000500s
+effective_network           0.002137s
+build_leh                  77.547285s
+optimise_(16, 16)           0.000123s
+iso_loc_(3, 2)              0.000753s
+effective_network           0.002158s
+build_leh                  77.630547s
+optimise_(16, 16)           0.000196s
+iso_loc_(3, 3)              0.000524s
+effective_network           0.002234s
+build_leh                  78.371420s
+optimise_(16, 16)           0.013432s
+iso_loc_(3, 4)              0.018294s
+effective_network           0.015914s
+build_leh                  77.132045s
+optimise_(16, 16)           0.000136s
+iso_loc_(3, 5)              0.000455s
+effective_network           0.002182s
+build_leh                  77.012531s
+optimise_(16, 16)           0.000122s
+iso_loc_(3, 6)              0.000927s
+effective_network           0.002211s
+build_leh                  76.458750s
+optimise_(16, 16)           0.000192s
+iso_loc_(3, 7)              0.000504s
+effective_network           0.002268s
+build_leh                  76.863754s
+optimise_(16, 16)           0.000282s
+
+sweep 2
+iso_loc_(1, 0)              0.000161s
+effective_network           0.000844s
+build_leh                   0.050160s
+optimise_(343, 343)         0.020398s
+iso_loc_(1, 1)              0.000513s
+effective_network           0.000882s
+build_leh                   0.044755s
+optimise_(343, 343)         0.016822s
+iso_loc_(2, 0)              0.000727s
+effective_network           0.002887s
+build_leh                   5.226098s
+optimise_(112, 112)         0.001481s
+iso_loc_(2, 1)              0.000526s
+effective_network           0.007172s
+build_leh                   5.846466s
+optimise_(112, 112)         0.001757s
+iso_loc_(2, 2)              0.000974s
+effective_network           0.001752s
+build_leh                   6.030408s
+optimise_(112, 112)         0.001641s
+iso_loc_(2, 3)              0.000517s
+effective_network           0.001594s
+build_leh                   5.975300s
+optimise_(112, 112)         0.001904s
+iso_loc_(3, 0)              0.001192s
+effective_network           0.011452s
+build_leh                  77.051640s
+optimise_(16, 16)           0.000181s
+iso_loc_(3, 1)              0.000506s
+effective_network           0.002138s
+build_leh                  76.908633s
+optimise_(16, 16)           0.000119s
+iso_loc_(3, 2)              0.000756s
+effective_network           0.002308s
+build_leh                  76.725104s
+optimise_(16, 16)           0.000123s
+iso_loc_(3, 3)              0.000467s
+effective_network           0.002289s
+build_leh                  76.842142s
+optimise_(16, 16)           0.000216s
+iso_loc_(3, 4)              0.001095s
+effective_network           0.002182s
+build_leh                  76.728474s
+optimise_(16, 16)           0.000123s
+iso_loc_(3, 5)              0.000445s
+effective_network           0.002205s
+build_leh                  76.592391s
+optimise_(16, 16)           0.000182s
+iso_loc_(3, 6)              0.000815s
+effective_network           0.002179s
+build_leh                  76.653421s
+optimise_(16, 16)           0.000178s
+iso_loc_(3, 7)              0.000522s
+effective_network           0.002271s
+build_leh                  76.953058s
+optimise_(16, 16)           0.000154s
+
+sweep 3
+iso_loc_(1, 0)              0.000183s
+effective_network           0.000839s
+build_leh                   0.050653s
+optimise_(343, 343)         0.012936s
+iso_loc_(1, 1)              0.000521s
+effective_network           0.003298s
+build_leh                   0.046695s
+optimise_(343, 343)         0.014775s
+iso_loc_(2, 0)              0.000739s
+effective_network           0.001562s
+build_leh                   5.245260s
+optimise_(112, 112)         0.001486s
+iso_loc_(2, 1)              0.000517s
+effective_network           0.001405s
+build_leh                   5.875938s
+optimise_(112, 112)         0.001767s
+iso_loc_(2, 2)              0.000977s
+effective_network           0.001693s
+build_leh                   6.149272s
+optimise_(112, 112)         0.001779s
+iso_loc_(2, 3)              0.000616s
+effective_network           0.001720s
+build_leh                   6.042404s
+optimise_(112, 112)         0.001746s
+iso_loc_(3, 0)              0.001152s
+effective_network           0.002442s
+build_leh                  76.895218s
+optimise_(16, 16)           0.000188s
+iso_loc_(3, 1)              0.000508s
+effective_network           0.002108s
+build_leh                  76.685758s
+optimise_(16, 16)           0.000198s
+iso_loc_(3, 2)              0.000817s
+effective_network           0.002184s
+build_leh                  76.592135s
+optimise_(16, 16)           0.000119s
+iso_loc_(3, 3)              0.000574s
+effective_network           0.002199s
+build_leh                  78.732509s
+optimise_(16, 16)           0.014082s
+iso_loc_(3, 4)              0.016979s
+effective_network           0.009890s
+build_leh                  78.699440s
+optimise_(16, 16)           0.000135s
+iso_loc_(3, 5)              0.000628s
+effective_network           0.002191s
+build_leh                  81.795225s
+optimise_(16, 16)           0.013114s
+iso_loc_(3, 6)              0.016153s
+effective_network           0.011157s
+build_leh                  78.553998s
+optimise_(16, 16)           0.000257s
+iso_loc_(3, 7)              0.000549s
+effective_network           0.002278s
+build_leh                  76.414809s
+optimise_(16, 16)           0.000187s
+energies = [[-6.0453369319320815, -10.358321478766834, -13.783166494356825, -16.3885619222058, -17.868382641343928, -20.29330858942319, -20.296827903754576, -20.297865907573545, -20.300318242741305, -20.307112875773417, -20.3179903105413, -20.318844691202937, -20.319254906720413, -20.320673058445387], [-20.350826101195022, -20.36443406945162, -20.367779457793294, -20.36925088588716, -20.377288157488888, -20.384482443916088, -20.385727593283125, -20.387704739610054, -20.390170540047045, -20.392365334453718, -20.393527417598637, -20.39416400471388, -20.39472245860978, -20.394917442345157], [-20.40101428560882, -20.40290261869491, -20.40321403141593, -20.40342459504113, -20.403510880695418, -20.403578500952143, -20.403579333510304, -20.40357954090165, -20.403579678132413, -20.403579715507522, -20.40357972505641, -20.403579767079215, -20.403579772806097, -20.40357978369903], [-20.40365228274712, -20.403671483345626, -20.403675175495994, -20.40367991171683, -20.403681114165554, -20.40368441476634, -20.403684423572173, -20.403684424859602, -20.403684426209445, -20.403684426406667, -20.40368442645399, -20.403684426634655, -20.403684426656742, -20.403684426840837]]
