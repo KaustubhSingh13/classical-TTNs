@@ -390,7 +390,7 @@ def build_H_eff(ttn, locc, env_tensors, hamiltonian):
     n_legs    = ttn.num_legs(locc)
     bond_dims = [ttn.bdim(locc, leg) for leg in range(n_legs)]
     D         = int(np.prod(bond_dims))
-    H_eff     = np.zeros((D, D))
+    H_eff     = np.zeros((D, D), dtype = complex)
 
     nbd      = ttn.nbd(locc)
     site_map = {}   # global_physical_site_index -> (env_idx, local_axis)
