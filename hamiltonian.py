@@ -189,12 +189,80 @@ class TFIsing(Hamiltonian):
             self.add_two_site(n_sites - 1, 0, -J * sz, sz)
 
 class Free(Hamiltonian):
-    def __init__(self, n_sites, h=1.0):
-        super().__init__(n_sites)
-
+    def __init__(self, n_sites, n_legs= = None, h=1.0):
+        super().__init__(n_sites, n_phys_sites = n_sites)
+        assert n_legs >= n_sites, 'n_legs msut be >= n_sites.'
         _, sz, _ = paulis()
 
         for i in range(n_sites):
             self.add_single_site(i, -h * sz)
+
+class heisenberg(Hamiltonian):
+
+    def __init__(self, n_sites: int, n_legs: int,
+                 J: float = 1.0, periodic: bool = False):
+        super().__init__(n_legs)          # n_legs, not n_sites
+        assert n_sites >= 1,       "Need at least one physical site."
+        assert n_legs  >= n_sites, "n_legs must be >= n_sites."
+
+        sx, sz, _ = paulis()
+        sy = np.array([[0, -1j], [1j, 0]], dtype=complex)
+        for i in range(n_sites - 1):
+            self.add_two_site(i, i + 1, J * sz, sz)
+            self.add_two_site(i, i + 1, J * sx, sx)
+            self.add_two_site(i, i + 1, J * sy, sy)
+
+        if periodic and n_sites > 2:
+            self.add_two_site(n_sites - 1, 0, J * sz, sz)
+            self.add_two_site(n_sites - 1, 0, J * sx, sx)
+            self.add_two_site(n_sites - 1, 0, J * sy, sy)
+
+
+class lmg(Hamiltonian):
+    """
+    Lipkin-Meshkov-Glick (LMG) model on n_sites spins:
+
+        H = - (J / n_sites) * Σ_{i < j} (X_i X_j  +  γ Y_i Y_j)
+            - h * Σ_i Z_i
+
+    The 1/N prefactor on the interaction makes the model extensive
+    (energy ∝ N in both phases), which is the standard convention.
+
+    Parameters
+    ----------
+    n_sites  : number of physical spins.
+    n_legs   : total number of legs available on the TTN node.
+                Must be >= n_sites.  Sites in range [n_sites, n_legs)
+                receive an identity term so that the Hamiltonian object
+                has the correct n_sites for build_H_eff / apply_H_eff.
+    J        : all-to-all XX+γYY coupling strength.
+    h        : longitudinal field strength (Σ Z_i term).
+    gamma    : anisotropy parameter.
+                γ=0  →  pure XX (Ising-like, exactly solvable).
+                γ=1  →  isotropic (SU(2)-symmetric XX+YY = S+S- + S-S+).
+                γ=-1 →  XY with opposite Y sign.
+    """
+
+    def __init__(self, n_sites: int, n_legs: int,
+                 J: float = 1.0, h: float = 0.5, gamma: float = 0.0):
+        super().__init__(n_legs)          # n_legs is the full Hilbert space size
+        assert n_sites >= 1,             "Need at least one physical site."
+        assert n_legs  >= n_sites,       "n_legs must be >= n_sites."
+
+        sx, sz, I_mat = paulis()
+        sy = np.array([[0, -1j], [1j, 0]], dtype=complex)
+
+        for i in range(n_sites):
+            self.add_single_site(i, -h * sz)
+
+        prefactor = J / n_sites        
+
+        for i in range(n_sites):
+            for j in range(i + 1, n_sites):
+                self.add_two_site(i, j, -prefactor * sx, sx)
+                if gamma != 0.0:
+                    self.add_two_site(i, j,
+                                      (-prefactor * gamma) * sy,
+                                      sy)
 
 
