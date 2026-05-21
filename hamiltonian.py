@@ -188,13 +188,122 @@ class TFIsing(Hamiltonian):
         if periodic and n_sites > 2:
             self.add_two_site(n_sites - 1, 0, -J * sz, sz)
 
+            
+class heisenberg(Hamiltonian):
+    """
+    Spin-1/2 Heisenberg model (nearest-neighbour, open or periodic chain):
+
+        H = J Σ_{<i,j>} (X_i X_j + Y_i Y_j + Z_i Z_j)
+            - h Σ_i Z_i
+
+    The XY part is stored using the exact real identity
+        X_i X_j + Y_i Y_j  =  2 (S⁺_i S⁻_j + S⁻_i S⁺_j)
+    so that ALL operators are real-valued and H_eff remains a real symmetric
+    matrix — no complex casting errors.
+
+    Parameters
+    ----------
+    n_sites  : number of physical spins.
+    n_legs   : total TTN legs (>= n_sites).
+    J        : exchange coupling.
+               J > 0  →  antiferromagnet (AFM).
+               J < 0  →  ferromagnet (FM).
+    h        : longitudinal field (−h Σ Z_i term).  Default 0.
+    periodic : include the (n_sites-1, 0) boundary bond.
+    """
+
+    def __init__(self, n_sites: int, n_legs: int,
+                 J: float = 1.0, h: float = 0.0,
+                 periodic: bool = False):
+        super().__init__(n_legs, n_phys_sites=n_sites)
+        assert n_sites >= 1,       "Need at least one physical site."
+        assert n_legs  >= n_sites, "n_legs must be >= n_sites."
+
+        sx, sz, _ = paulis()
+        sp, sm    = raising_lowering()
+
+        # Longitudinal field (zero by default for pure Heisenberg)
+        if h != 0.0:
+            for i in range(n_sites):
+                self.add_single_site(i, -h * sz)
+
+        # Nearest-neighbour bonds: X⊗X + Y⊗Y + Z⊗Z
+        # Written as  2(S⁺⊗S⁻ + S⁻⊗S⁺) + Z⊗Z  — all real operators.
+        bonds = list(range(n_sites - 1))
+        if periodic and n_sites > 2:
+            bonds.append(n_sites - 1)   # wraps: pair (n_sites-1, 0)
+
+        for i in bonds:
+            j = (i + 1) % n_sites       # handles periodic wrap correctly
+            self.add_two_site(i, j,  J * sz,      sz)      # Z⊗Z
+            self.add_two_site(i, j,  2 * J * sp,  sm)      # 2J S⁺⊗S⁻
+            self.add_two_site(i, j,  2 * J * sm,  sp)      # 2J S⁻⊗S⁺
+
+
 class Free(Hamiltonian):
-    def __init__(self, n_sites, h=1.0):
-        super().__init__(n_sites)
+    """
+    Non-interacting spins in a longitudinal field:
+        H = -h Σ_i Z_i
+    """
+
+    def __init__(self, n_sites: int, n_legs: int = None, h: float = 1.0):
+        n_legs = n_legs if n_legs is not None else n_sites
+        super().__init__(n_legs, n_phys_sites=n_sites)
+        assert n_legs >= n_sites, "n_legs must be >= n_sites."
 
         _, sz, _ = paulis()
-
         for i in range(n_sites):
             self.add_single_site(i, -h * sz)
 
+class lmg(Hamiltonian):
+    """
+    Lipkin-Meshkov-Glick model:
+        H = -(J / N) Σ_{i < j} (X_i X_j + γ Y_i Y_j)  -  h Σ_i Z_i
+
+    The 1/N prefactor makes the model extensive (energy ∝ N in both phases).
+
+    The XY anisotropy term is stored with REAL operators only using:
+        X_i X_j + γ Y_i Y_j
+          = (1−γ)(S⁺_i S⁺_j + S⁻_i S⁻_j)  +  (1+γ)(S⁺_i S⁻_j + S⁻_i S⁺_j)
+    so H_eff is always real symmetric — no complex casting errors.
+
+    Parameters
+    ----------
+    n_sites : number of physical spins (N in the 1/N prefactor).
+    n_legs  : total TTN legs (>= n_sites).
+    J       : all-to-all coupling strength.
+    h       : longitudinal field (Σ Z_i term).
+    gamma   : XY anisotropy.
+                γ = 0  →  pure XX model.
+                γ = 1  →  isotropic XY  (X⊗X + Y⊗Y = 2(S⁺S⁻ + S⁻S⁺)).
+                γ = -1 →  X⊗X − Y⊗Y = 2(S⁺S⁺ + S⁻S⁻).
+    """
+
+    def __init__(self, n_sites: int, n_legs: int,
+                 J: float = 1.0, h: float = 0.5, gamma: float = 0.0):
+        super().__init__(n_legs, n_phys_sites=n_sites)
+        assert n_sites >= 1,       "Need at least one physical site."
+        assert n_legs  >= n_sites, "n_legs must be >= n_sites."
+
+        sx, sz, _ = paulis()
+        sp, sm    = raising_lowering()
+
+        # Longitudinal field
+        for i in range(n_sites):
+            self.add_single_site(i, -h * sz)
+
+        # All-to-all XY interaction (real decomposition)
+        # X⊗X + γY⊗Y = (1-γ)(S⁺S⁺ + S⁻S⁻) + (1+γ)(S⁺S⁻ + S⁻S⁺)
+        prefactor = J / n_sites
+        c_diag  = (1 - gamma) * prefactor   # coefficient for S⁺S⁺, S⁻S⁻
+        c_cross = (1 + gamma) * prefactor   # coefficient for S⁺S⁻, S⁻S⁺
+
+        for i in range(n_sites):
+            for j in range(i + 1, n_sites):
+                if c_cross != 0.0:
+                    self.add_two_site(i, j, -c_cross * sp, sm)  # S⁺_i S⁻_j
+                    self.add_two_site(i, j, -c_cross * sm, sp)  # S⁻_i S⁺_j
+                if c_diag != 0.0:
+                    self.add_two_site(i, j, -c_diag * sp, sp)   # S⁺_i S⁺_j
+                    self.add_two_site(i, j, -c_diag * sm, sm)   # S⁻_i S⁻_j
 
